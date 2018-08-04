@@ -10,6 +10,7 @@ if ( ! ( Test-Path $outputFolder ) )
   mkdir $outputFolder
 }
 
+$emailAddresses=""
 $emails = @()
 
 foreach ($file in $files)
@@ -59,6 +60,7 @@ foreach ($file in $files)
   $fromEnd = $sentStart - 1
   $from = $msg.Substring($fromStart,$fromEnd - $fromStart)
   $from = $from.Replace("From:","").Replace("`n","").Trim()
+  $emailAddresses+=$from
 
     if ( $toStart -gt 0 )
     {
@@ -114,6 +116,7 @@ foreach ($file in $files)
     }
     $to = $msg.Substring($toStart,$toEnd - $toStart)
     $to = $to.Replace("To:","").Replace("`n","").Trim()
+    $emailAddresses+=$to
   }
 
   if ( $ccStart -gt 0 )
@@ -135,6 +138,7 @@ foreach ($file in $files)
     }
     $cc = $msg.Substring($ccStart,$ccEnd - $ccStart)
     $cc = $cc.Replace("Cc:","").Replace("`n","").Trim()
+    $emailAddresses+=$cc
   }
   
   if ( $bccStart -gt 0 )
@@ -152,6 +156,7 @@ foreach ($file in $files)
     }
     $bcc = $msg.Substring($bccStart,$bccEnd - $bccStart)
     $bcc = $bcc.Replace("Bcc:","").Replace("`n","").Trim()
+    $emailAddresses+=$bcc
   }
 
   if ( $subjectStart -gt 0 )
